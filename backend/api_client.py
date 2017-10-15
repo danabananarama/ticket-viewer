@@ -5,8 +5,10 @@ API_ROOT = "https://ticketviewerdana.zendesk.com"
 
 class ZendeskApiClient(object):
     """ Client which calls the Zendesk Rest API """
+    # TODO: Handle pagination
     def _get(self, uri):
-        return requests.get(API_ROOT + uri, auth=auth)
+        """ Make a GET request to the API, timing out if there is no response within 30 seconds """
+        return requests.get(API_ROOT + uri, auth=auth, timeout=30)
 
     def get_ticket(self, ticket_id):
         """ Given a ticket id, return the ticket info in a JSON dictionary"""
