@@ -1,0 +1,23 @@
+body {
+    font-family: sans-serif;
+}
+
+button {
+    background-color: #30aabc;
+    border: none;
+    color: white;
+    padding: 3px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+th {
+    background-color: #30aabc;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
