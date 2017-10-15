@@ -8,11 +8,17 @@ class ZendeskApiClient(object):
     def _get(self, uri):
         return requests.get(API_ROOT + uri, auth=auth)
 
+    def get_ticket(self, ticket_id):
+        """ Given a ticket id, return the ticket info in a JSON dictionary"""
+        response = self._get("/api/v2/tickets/{}.json".format(ticket_id))
+        return response.json()
+
     def list_tickets(self):
         """ List all tickets as a JSON dictionary """
-        tickets = self._get("/api/v2/tickets.json")
-        return tickets.json()
+        response = self._get("/api/v2/tickets.json")
+        return response.json()
 
 
 if __name__ == "__main__":
-    print(ZendeskApiClient().list_tickets())
+#    print(ZendeskApiClient().list_tickets())
+    print(ZendeskApiClient().get_ticket(101))
