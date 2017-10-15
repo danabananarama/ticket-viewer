@@ -2,7 +2,7 @@ import json
 from unittest.mock import patch
 import unittest
 
-from client import ZendeskApiClient, API_ROOT
+from api_client import ZendeskApiClient, API_ROOT
 
 test_ticket = {
     "subject": "Subject",

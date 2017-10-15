@@ -18,7 +18,3 @@ class ZendeskApiClient(object):
         response = self._get("/api/v2/tickets.json")
         return response.json()
 
-
-if __name__ == "__main__":
-#    print(ZendeskApiClient().list_tickets())
-    print(ZendeskApiClient().get_ticket(101))
