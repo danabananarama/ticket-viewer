@@ -11,7 +11,12 @@ def _extract_fields(ticket):
     fields = ["id", "subject", "description", "updated_at"]
     return {field: ticket[field] for field in fields}
 
-@app.route("/lookup/<ticket_id>")
+def _create_response(payload):
+    response = make_response(payload)
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
+
+@app.route("/ticket/<ticket_id>")
 def lookup_ticket(ticket_id):
     """ Look up ticket info 
     Args:
@@ -21,14 +26,14 @@ def lookup_ticket(ticket_id):
         Ticket info """
     ticket_json = app.client.get_ticket(ticket_id)
     ticket = _extract_fields(ticket_json["ticket"])
-    return json.dumps(ticket)
+    return _create_response(json.dumps(ticket))
 
 @app.route("/tickets")
 def list_tickets():
     """ List all tickets """
     tickets_json = app.client.list_tickets()
     tickets = [_extract_fields(t) for t in tickets_json["tickets"]]
-    return json.dumps(tickets)
+    return _create_response(json.dumps(tickets))
 
 if __name__ == "__main__":
     app.run()

@@ -24,7 +24,7 @@ class TicketViewerTest(unittest.TestCase):
         self.app = server.app.test_client()
 
     def test_lookup_ticket(self):
-        response = self.app.get("/lookup/1")
+        response = self.app.get("/ticket/1")
         self.assertEqual(json.loads(response.data), test_ticket)
 
     def test_list_tickets(self):
