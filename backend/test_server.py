@@ -13,12 +13,12 @@ class MockApiClient(object):
     """ Class for mocking the API Client """
     def get_ticket(self, ticket_id):
         if ticket_id == "1":
-            return {"ticket": test_ticket}
+            return test_ticket
         else:
             raise Exception("No such ticket")
 
     def list_tickets(self):
-        return {"tickets": [test_ticket]}
+        return [test_ticket]
 
 class TicketViewerTest(unittest.TestCase):
     def setUp(self):

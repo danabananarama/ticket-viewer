@@ -19,7 +19,7 @@ def _create_response(payload, status_code):
 
 def _lookup_ticket(ticket_id):
     ticket_json = app.client.get_ticket(ticket_id)
-    ticket = _extract_fields(ticket_json["ticket"])
+    ticket = _extract_fields(ticket_json)
     return _create_response(json.dumps(ticket), 200)
 
 @app.route("/ticket/<ticket_id>")
@@ -40,7 +40,7 @@ def lookup_ticket(ticket_id):
 
 def _list_tickets():
     tickets_json = app.client.list_tickets()
-    tickets = [_extract_fields(t) for t in tickets_json["tickets"]]
+    tickets = [_extract_fields(t) for t in tickets_json]
     return _create_response(json.dumps(tickets), 200)
 
 @app.route("/tickets")
@@ -56,3 +56,4 @@ def list_tickets():
 
 if __name__ == "__main__":
     app.run()
+
