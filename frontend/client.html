@@ -1,0 +1,17 @@
+<head>
+     <script src="jquery-3.2.1.min.js"></script>
+     <script src="client.js"></script>
+     <meta charset="utf-8"/>
+     <title>Dana's Ticket Viewer</title>
+</head>
+<body>
+    <form accept-charset=utf-8>
+        <legend>View ticket</legend>
+        Ticket ID: <input type="text" id="ticketID">
+    </form>
+    <button onclick=viewTicket()>View</button>
+        
+    <button onclick=listTickets()>List tickets</button>
+    <div id="ticketContainer"></div>
+</body>
+
