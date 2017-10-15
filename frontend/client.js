@@ -19,8 +19,8 @@ function buildTicketView(ticket) {
     var table = document.createElement("table");
     ticketFields.map(field => {
         row = document.createElement("tr");
-        row.appendChild(createCell(field));
-        row.appendChild(createCell(ticket[field]));
+        row.appendChild(createHeaderCell(field));
+        row.appendChild(createBodyCell(ticket[field]));
         table.appendChild(row);
     })
 
@@ -39,7 +39,14 @@ function buildTable(tickets) {
     /* Given the array of ticket objects, build the ticket info table in the DOM */
     var container = document.getElementById("ticketContainer");
     container.innerHTML = "";
-    var table = document.createElement("table")
+    var table = document.createElement("table");
+    var header = document.createElement("tr");
+
+    ticketFields.map(field => {
+        header.appendChild(createHeaderCell(field.replace("_", " ")));
+    })
+
+    table.appendChild(header);
 
     tickets.map(ticket => {
         var row = createRow(ticket);
@@ -53,15 +60,23 @@ function createRow(ticket) {
     var row = document.createElement("tr");
 
     ticketFields.map(field => {
-        cell = createCell(ticket[field])
+        cell = createBodyCell(ticket[field])
         row.appendChild(cell);
     })
 
     return row;
 }
 
-function createCell(content) {
-    var cell = document.createElement("td");
+function createHeaderCell(content) {
+    return createCell(content, "th")
+}
+
+function createBodyCell(content) {
+    return createCell(content, "td")
+}
+
+function createCell(content, cellType) {
+    var cell = document.createElement(cellType);
     cell.innerHTML = content;
     return cell;
 }

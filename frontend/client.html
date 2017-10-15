@@ -2,16 +2,20 @@
      <script src="jquery-3.2.1.min.js"></script>
      <script src="client.js"></script>
      <meta charset="utf-8"/>
+     <link rel="stylesheet" type="text/css" href="style.css">
      <title>Dana's Ticket Viewer</title>
 </head>
 <body>
-    <form accept-charset=utf-8>
+    <table>
+    <fieldset>
         <legend>View ticket</legend>
-        Ticket ID: <input type="text" id="ticketID">
-    </form>
-    <button onclick=viewTicket()>View</button>
-        
-    <button onclick=listTickets()>List tickets</button>
+        <form accept-charset=utf-8>
+            Ticket ID: <input type="text" id="ticketID">
+        </form><button onclick=viewTicket()>View single ticket</button>
+        <button onclick=listTickets()>List all tickets</button>
+    </fieldset>
+    </table>
+    <br>
     <div id="ticketContainer"></div>
 </body>
 
