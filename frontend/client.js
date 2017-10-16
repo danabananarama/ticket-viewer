@@ -43,10 +43,10 @@ function displayError(response) {
         errorDisplayed = "Server error; please contact technical support";
     }
 
-    var errorContainer = document.createElement("div")
-    errorContainer.setAttribute("class", "error")
+    var errorContainer = document.createElement("div");
+    errorContainer.setAttribute("class", "error");
     errorContainer.innerHTML = errorDisplayed;
-    container.appendChild(errorContainer)
+    container.appendChild(errorContainer);
 }
 
 function listTickets() {
@@ -81,13 +81,13 @@ function setNumberPages(numPages) {
 }
 
 function showPage(pageNo) {
-    displayTickets(tickets, pageNo)
+    displayTickets(tickets, pageNo);
 }
 
 function displayTickets(tickets, pageNo) {
     var start = ticketsPerPage * (pageNo - 1);
-    var end = ticketsPerPage * pageNo - 1
-    buildTable(tickets.slice(start, end))
+    var end = ticketsPerPage * pageNo - 1;
+    buildTable(tickets.slice(start, end));
 }
 
 function clearTickets() {
@@ -123,7 +123,7 @@ function createRow(ticket) {
     var row = document.createElement("tr");
 
     ticketFields.map(field => {
-        cell = createBodyCell(ticket[field])
+        cell = createBodyCell(ticket[field]);
         row.appendChild(cell);
     })
 
@@ -131,11 +131,11 @@ function createRow(ticket) {
 }
 
 function createHeaderCell(content) {
-    return createCell(content, "th")
+    return createCell(content, "th");
 }
 
 function createBodyCell(content) {
-    return createCell(content, "td")
+    return createCell(content, "td");
 }
 
 function createCell(content, cellType) {
