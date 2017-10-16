@@ -1,6 +1,7 @@
-import server
 import json
 import unittest
+
+import server
 
 test_ticket = {
     "id":           1,
@@ -8,6 +9,7 @@ test_ticket = {
     "description":  "Description",
     "updated_at":   "2017-01-01T00:00:00Z"
 }
+
 
 class MockApiClient(object):
     """ Class for mocking the API Client """
@@ -19,6 +21,7 @@ class MockApiClient(object):
 
     def list_tickets(self):
         return [test_ticket]
+
 
 class TicketViewerTest(unittest.TestCase):
     def setUp(self):
@@ -41,4 +44,3 @@ class TicketViewerTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

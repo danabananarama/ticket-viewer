@@ -1,6 +1,6 @@
 import json
-from unittest.mock import patch
 import unittest
+from unittest.mock import patch
 
 from api_client import ZendeskApiClient, API_ROOT
 
@@ -9,6 +9,7 @@ test_ticket = {
     "description": "Description",
     "updated_at": "2017-01-01T00:00:00Z"
 }
+
 
 class MockRequests(object):
     """ Helper class to mock the Zendesk REST API for unit testing """
@@ -45,4 +46,3 @@ class TestZendeskApiClient(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
