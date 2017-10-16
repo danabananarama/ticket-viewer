@@ -8,9 +8,10 @@ function viewTicket() {
     var ticketID = document.getElementById("ticketID").value;
     var url = `${server}/ticket/${ticketID}`;
 
-    $.get(url, function(data){
-        // TODO: handle failure
+    $.get(url, function(data) {
         buildTicketView(JSON.parse(data));
+    }).fail(function(response) {
+        displayError(response);
     })
 }
 
@@ -29,15 +30,43 @@ function buildTicketView(ticket) {
     container.appendChild(table);
 }
 
+function displayError(response) {
+    clearTickets();
+    var container = document.getElementById("ticketContainer");
+    var errorDisplayed = "";
+
+    if (response.status == 504) {
+        errorDisplayed = "Zendesk API unresponsive";
+    } else if (response.status == 503) {
+        errorDisplayed = "Zendesk API returned an unexpected response";
+    } else if (response.status == 500) {
+        errorDisplayed = "Server error; please contact technical support";
+    }
+
+    var errorContainer = document.createElement("div")
+    errorContainer.setAttribute("class", "error")
+    errorContainer.innerHTML = errorDisplayed;
+    container.appendChild(errorContainer)
+}
+
 function listTickets() {
     /* Call the API to get the list of tickets and display it in a table */
+    displayWaitingMessage();
+
     $.get(server + "/tickets", function(data){
-        // TODO: handle failure
         tickets = JSON.parse(data);
         var numPages = Math.ceil(tickets.length / ticketsPerPage);
         setNumberPages(numPages);
         displayTickets(tickets, 1);
+    }).fail(function(response) {
+        displayError(response);
     })
+}
+
+function displayWaitingMessage() {
+    clearTickets();
+    var container = document.getElementById("ticketContainer");
+    container.innerHTML = "Querying Zendesk API...";
 }
 
 function setNumberPages(numPages) {
