@@ -20,9 +20,8 @@ class ZendeskApiClient(object):
                 raise ZendeskApiException(e.message)
         return wrapper
 
-    def _get(self, uri, append_root=True):
+    def _get(self, url, append_root=True):
         """ Make a GET request to the API, timing out if there is no response within 30 seconds """
-        url = uri if append_root else uri
         return requests.get(url, auth=auth, timeout=30)
 
     @error_handler

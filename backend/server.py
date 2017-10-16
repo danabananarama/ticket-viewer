@@ -8,11 +8,12 @@ from api_client import ZendeskApiClient, ZendeskApiException
 app = Flask(__name__)
 app.client = ZendeskApiClient()
 
+TICKET_FIELDS = ["id", "subject", "description", "updated_at"]
+
 
 def _extract_fields(ticket):
     """ Given ticket info dictionary, extract the fields that are of interest """
-    fields = ["id", "subject", "description", "updated_at"]
-    return {field: ticket[field] for field in fields}
+    return {field: ticket[field] for field in TICKET_FIELDS}
 
 
 def _create_response(payload, status_code):

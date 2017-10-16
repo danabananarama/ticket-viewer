@@ -43,7 +43,7 @@ function displayError(response) {
         errorDisplayed = "Server error; please contact technical support";
     }
 
-    var errorContainer = document.createElement("div";)
+    var errorContainer = document.createElement("div");
     errorContainer.setAttribute("class", "error");
     errorContainer.innerHTML = errorDisplayed;
     container.appendChild(errorContainer);
