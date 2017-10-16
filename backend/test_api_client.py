@@ -21,7 +21,8 @@ class MockRequests(object):
             return self._json
 
     api_dict = {
-        API_ROOT + "/api/v2/tickets.json": MockResponse({"tickets": [test_ticket], "next_page": None}),
+        API_ROOT + "/api/v2/tickets.json": MockResponse({"tickets": [test_ticket], "next_page": API_ROOT + "/api/v2/tickets.json?page=2"}),
+        API_ROOT + "/api/v2/tickets.json?page=2": MockResponse({"tickets": [test_ticket], "next_page": None}),
         API_ROOT + "/api/v2/tickets/1.json": MockResponse({"ticket": test_ticket})
     }
 
@@ -36,7 +37,7 @@ class TestZendeskApiClient(unittest.TestCase):
     def test_list_tickets(self, mock_get):
         mock_get.side_effect = MockRequests().get
         tickets = self.client.list_tickets()
-        self.assertEqual(tickets, [test_ticket])
+        self.assertEqual(tickets, [test_ticket, test_ticket])
 
     @patch("requests.get")
     def test_get_ticket(self, mock_get):
