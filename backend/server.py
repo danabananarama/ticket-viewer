@@ -32,7 +32,7 @@ def endpoint(f):
             app.logger.error("Connection timeout while waiting for the API")
             return _create_response("Zendesk API appears to be unavailable...", 504)
         except ZendeskApiException as e:
-            app.logger.error("Unexpected response from Zendesk API: {}" + e.message)
+            app.logger.error("Unexpected response from Zendesk API: {}".format(e))
             return _create_response("Unexpected response from the Zendesk API.", 503)
         except Exception as e:
             app.logger.error(str(e))
