@@ -1,5 +1,7 @@
 var server = "http://localhost:5000";
 var ticketFields = Array("id", "subject", "description", "updated_at");
+var ticketsPerPage = 100;
+var tickets = Array();
 
 function viewTicket() {
     /* Call the API to look up ticket information for a single ticket and display it */
@@ -14,8 +16,8 @@ function viewTicket() {
 
 function buildTicketView(ticket) {
     /* Build up the view of the ticket */
+    clearTickets();
     var container = document.getElementById("ticketContainer");
-    container.innerHTML = "";
     var table = document.createElement("table");
     ticketFields.map(field => {
         row = document.createElement("tr");
@@ -31,8 +33,40 @@ function listTickets() {
     /* Call the API to get the list of tickets and display it in a table */
     $.get(server + "/tickets", function(data){
         // TODO: handle failure
-        buildTable(JSON.parse(data));
+        tickets = JSON.parse(data);
+        var numPages = Math.ceil(tickets.length / ticketsPerPage);
+        setNumberPages(numPages);
+        displayTickets(tickets, 1);
     })
+}
+
+function setNumberPages(numPages) {
+    var container = document.getElementById("pages");
+    for (page = 1; page <= numPages; page++) {
+        var button = document.createElement("button");
+        button.innerHTML = page;
+        // Using closures to solve the issue of javascript scoping
+        button.onclick = function(page){return function(){showPage(page)};}(page);
+        container.appendChild(button);
+    }
+}
+
+function showPage(pageNo) {
+    displayTickets(tickets, pageNo)
+}
+
+function displayTickets(tickets, pageNo) {
+    var start = ticketsPerPage * (pageNo - 1);
+    var end = ticketsPerPage * pageNo - 1
+    buildTable(tickets.slice(start, end))
+}
+
+function clearTickets() {
+    /* Clear the last tickets viewed */
+    var container = document.getElementById("ticketContainer");
+    container.innerHTML = "";
+    var pages = document.getElementById("pages");
+    pages.innerHTML = "";
 }
 
 function buildTable(tickets) {
