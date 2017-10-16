@@ -20,8 +20,8 @@ class MockRequests(object):
             return self._json
 
     api_dict = {
-        API_ROOT + "/api/v2/tickets.json": MockResponse([test_ticket]),
-        API_ROOT + "/api/v2/tickets/1.json": MockResponse(test_ticket)
+        API_ROOT + "/api/v2/tickets.json": MockResponse({"tickets": [test_ticket], "next_page": None}),
+        API_ROOT + "/api/v2/tickets/1.json": MockResponse({"ticket": test_ticket})
     }
 
     def get(self, uri, **kwArgs):
